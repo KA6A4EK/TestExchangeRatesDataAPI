@@ -64,7 +64,9 @@ fun BaseCurrencyDropdown(
                 style = MaterialTheme.typography.titleMedium,
             )
             Icon(
-                painterResource(if (!expanded) R.drawable.dropdown else R.drawable.dropup), contentDescription = "", tint = BlueMain
+                painterResource(if (!expanded) R.drawable.dropdown else R.drawable.dropup),
+                contentDescription = "",
+                tint = BlueMain
             )
         }
 

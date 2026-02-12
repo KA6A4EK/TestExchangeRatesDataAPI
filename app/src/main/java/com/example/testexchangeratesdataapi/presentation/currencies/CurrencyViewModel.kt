@@ -42,15 +42,14 @@ class CurrenciesViewModel @Inject constructor(
     private var currentSortType: SortType = SortType.ALPHABET_ASC
     private var currentRates: List<CurrencyRate> = emptyList()
 
-    fun initViewModel(){
+    fun initViewModel() {
         viewModelScope.launch {
             _uiState.value = CurrenciesUiState.Loading
-            val settings = getSortSettingsUseCase().first()
-            currentSortType = settings.sortType
-            currentBaseCurrency = settings.default
             loadRates()
             getSortSettingsUseCase()
                 .onEach { newSortType ->
+                    currentSortType = newSortType.sortType
+                    currentBaseCurrency = newSortType.default
                     emitSorted()
                 }
                 .launchIn(viewModelScope)
@@ -67,13 +66,10 @@ class CurrenciesViewModel @Inject constructor(
     }
 
 
-
-
     fun onToggleFavorite(item: CurrencyItem) {
         viewModelScope.launch {
             try {
                 toggleFavoriteUseCase(item.baseCurrency, item.code)
-//                loadRates()
                 setFavorites()
                 emitSorted()
             } catch (e: Exception) {
@@ -94,19 +90,17 @@ class CurrenciesViewModel @Inject constructor(
             try {
                 val rates = getRatesUseCase(currentBaseCurrency)
                 currentRates = rates
-
                 setFavorites()
-
                 emitSorted()
             } catch (e: Exception) {
                 _uiState.value = CurrenciesUiState.Error(
-                    message =  "Ошибка загрузки курсов\n${e.message}"
+                    message = "Ошибка загрузки курсов\n${e.message}"
                 )
             }
         }
     }
 
-    private suspend fun setFavorites(){
+    private suspend fun setFavorites() {
         val favorites = getFavoritesUseCase().first()
         val favoriteSet = favorites
             .map { it.baseCurrency to it.targetCurrency }
