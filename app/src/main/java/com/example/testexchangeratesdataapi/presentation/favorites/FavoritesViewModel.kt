@@ -1,4 +1,4 @@
-package com.example.testexchangeratesdataapi.presentation.viewmodel
+package com.example.testexchangeratesdataapi.presentation.favorites
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,16 +7,17 @@ import com.example.testexchangeratesdataapi.domain.usecase.GetFavoritesUseCase
 import com.example.testexchangeratesdataapi.domain.usecase.GetRatesUseCase
 import com.example.testexchangeratesdataapi.domain.usecase.ToggleFavoriteUseCase
 import com.example.testexchangeratesdataapi.domain.usecase.UpdateLastRefreshTimeUseCase
-import com.example.testexchangeratesdataapi.presentation.state.FavoritePair
-import com.example.testexchangeratesdataapi.presentation.state.FavoritesUiState
+import com.example.testexchangeratesdataapi.presentation.currencies.components.state.CurrencyItem
+import com.example.testexchangeratesdataapi.presentation.filter.FavoritesUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+import kotlin.collections.iterator
 
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
@@ -47,7 +48,7 @@ class FavoritesViewModel @Inject constructor(
                     try {
                         // сгруппировать избранные по базовой валюте и получить актуальные курсы
                         val groupedByBase = favorites.groupBy { it.baseCurrency }
-                        val pairs = mutableListOf<FavoritePair>()
+                        val pairs = mutableListOf<CurrencyItem>()
 
                         for ((base, list) in groupedByBase) {
                             val rates = getRatesUseCase(base)
@@ -61,11 +62,11 @@ class FavoritesViewModel @Inject constructor(
                                     fav.targetCurrency
                                 )
                                 pairs.add(
-                                    FavoritePair(
-                                        pairCode = pairCode,
+                                    CurrencyItem(
                                         quote = quote,
                                         baseCurrency = fav.baseCurrency,
-                                        targetCurrency = fav.targetCurrency
+                                        code = fav.targetCurrency,
+                                        isFavorite = true
                                     )
                                 )
                             }
@@ -96,4 +97,3 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 }
-

@@ -1,4 +1,4 @@
-package com.example.testexchangeratesdataapi.presentation.viewmodel
+package com.example.testexchangeratesdataapi.presentation.filter
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,7 +14,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 data class FilterUiState(
-    val selectedSortType: SortType
+    val selectedSortType: SortType,
+    val default : String
 )
 
 @HiltViewModel
@@ -29,7 +30,7 @@ class FilterViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val current = getSortSettingsUseCase().first()
-            _uiState.value = FilterUiState(selectedSortType = current)
+            _uiState.value = FilterUiState(selectedSortType = current.sortType, default = current.default)
         }
     }
 
@@ -40,7 +41,7 @@ class FilterViewModel @Inject constructor(
     fun applySelection() {
         val sortType = _uiState.value?.selectedSortType ?: return
         viewModelScope.launch {
-            applySortingUseCase(sortType)
+            applySortingUseCase(sortType,uiState.value?.default?:"USD")
         }
     }
 }

@@ -1,9 +1,15 @@
 package com.example.testexchangeratesdataapi.di
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import com.example.testexchangeratesdataapi.data.local.CurrencyDatabase
 import com.example.testexchangeratesdataapi.data.local.FavoriteCurrencyPairDao
+import com.example.testexchangeratesdataapi.data.local.datastore.DatastoreManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,9 +44,22 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideSortSettingsDao(
-        database: CurrencyDatabase
-    ): com.example.testexchangeratesdataapi.data.local.SortSettingsDao =
-        database.sortSettingsDao()
+    fun provideDataStore(
+        @ApplicationContext context: Context,
+    ): DataStore<Preferences> {
+        return PreferenceDataStoreFactory.create {
+            context.preferencesDataStoreFile("settings")
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun provideSettingsDao(
+        dataStore: DataStore<Preferences>
+    ): DatastoreManager =
+        DatastoreManager(dataStore)
+
 }
+
+
 

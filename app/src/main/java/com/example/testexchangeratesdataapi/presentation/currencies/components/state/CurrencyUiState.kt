@@ -1,7 +1,7 @@
-package com.example.testexchangeratesdataapi.presentation.state
+package com.example.testexchangeratesdataapi.presentation.currencies.components.state
 
 import com.example.testexchangeratesdataapi.domain.model.SortType
-import com.example.testexchangeratesdataapi.presentation.state.CurrencyItem
+import com.example.testexchangeratesdataapi.presentation.currencies.components.state.CurrencyItem
 
 sealed interface CurrenciesUiState {
 

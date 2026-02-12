@@ -45,7 +45,7 @@ object NetworkModule {
     fun provideApiKeyInterceptor(): Interceptor = Interceptor { chain ->
         val original = chain.request()
         val request = original.newBuilder()
-            .addHeader("apikey", "sGhDxITCp61GejhZOPoS6nfgd8THykLG")
+            .addHeader("apikey", "SFRpneZnQhd8nQIOVQTmJ0l5gg5NACy1")
             .build()
         chain.proceed(request)
     }

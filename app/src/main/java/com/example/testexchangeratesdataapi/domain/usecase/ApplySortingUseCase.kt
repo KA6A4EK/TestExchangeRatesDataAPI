@@ -1,7 +1,7 @@
 package com.example.testexchangeratesdataapi.domain.usecase
 
 import com.example.testexchangeratesdataapi.domain.model.SortType
-import com.example.testexchangeratesdataapi.domain.repository.SortSettingsRepository
+import com.example.testexchangeratesdataapi.domain.repository.SettingsRepository
 import javax.inject.Inject
 
 /**
@@ -9,11 +9,11 @@ import javax.inject.Inject
  * Фактическая сортировка списка выполняется через SortRatesUseCase.
  */
 class ApplySortingUseCase @Inject constructor(
-    private val sortSettingsRepository: SortSettingsRepository
+    private val settingsRepository: SettingsRepository
 ) {
 
-    suspend operator fun invoke(sortType: SortType) {
-        sortSettingsRepository.setSortType(sortType)
+    suspend operator fun invoke(sortType: SortType? = null,default : String?= null) {
+        settingsRepository.setSortType(sortType, default)
     }
 }
 

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.serializer)
 }
 
 android {
@@ -71,6 +72,10 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.moshi.kotlin)
+    implementation(libs.datastore)
+    implementation(libs.datastore.preferences)
+    implementation(libs.kotlinx.serialization.json)
+
 //    ksp(libs.retrofit.moshi.codegen)
 
     // Room

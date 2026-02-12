@@ -18,12 +18,6 @@ class CurrencyRepositoryImpl @Inject constructor(
     override suspend fun getRates(baseCurrency: String): List<CurrencyRate> {
         val response = apiService.getLatestRates(baseCurrency)
 
-        val favoritesForBase = favoriteDao
-            .getAll() // Flow, but we need current snapshot; better query by base, but keep simple
-        // NOTE: to keep Room query efficient, you'd normally expose a suspend query by base.
-        // Here we will map from current favorites stream when collected in domain layer instead.
-
-        // For simplicity we ignore favorites here; ViewModel will merge favorites from a separate flow.
 
         return response.rates.entries.map { (target, rate) ->
             CurrencyRate(

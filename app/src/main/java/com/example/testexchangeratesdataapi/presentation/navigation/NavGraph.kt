@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.testexchangeratesdataapi.presentation.screen.CurrenciesScreen
-import com.example.testexchangeratesdataapi.presentation.screen.FavoritesScreen
-import com.example.testexchangeratesdataapi.presentation.screen.FilterScreen
+import com.example.testexchangeratesdataapi.presentation.currencies.CurrenciesScreen
+import com.example.testexchangeratesdataapi.presentation.favorites.FavoritesScreen
+import com.example.testexchangeratesdataapi.presentation.filter.FilterScreen
 
 @Composable
 fun CurrencyTrackerNavGraph(
