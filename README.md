@@ -1,6 +1,9 @@
 ## TestExchangeRatesDataAPI
 
 Приложение для просмотра актуальных курсов валют на базе **Exchange Rates Data API (apilayer)**. Написано на **Kotlin** с использованием **Jetpack Compose**, **Hilt**, **Retrofit**, **Room** и **DataStore**.
+
+
+
 <img width="396" height="844" alt="image" src="https://github.com/user-attachments/assets/885e56c1-d696-4763-8be0-d1cdf8ee49c5" />
 
 
