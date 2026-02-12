@@ -1,6 +1,9 @@
 ## TestExchangeRatesDataAPI
 
 Приложение для просмотра актуальных курсов валют на базе **Exchange Rates Data API (apilayer)**. Написано на **Kotlin** с использованием **Jetpack Compose**, **Hilt**, **Retrofit**, **Room** и **DataStore**.
+<img width="396" height="844" alt="image" src="https://github.com/user-attachments/assets/885e56c1-d696-4763-8be0-d1cdf8ee49c5" />
+<img width="396" height="849" alt="image" src="https://github.com/user-attachments/assets/11dac565-1e64-46f9-8aa3-ebfc3fa762e3" />
+<img width="393" height="846" alt="image" src="https://github.com/user-attachments/assets/ea179ae5-e8c9-46bf-9690-4a2a8dd7f3bf" />
 
 ### Основные возможности
 
@@ -78,23 +81,6 @@
    - выберите конфигурацию `app`;
    - запустите на эмуляторе или реальном устройстве (minSdk 28).
 
-### API‑ключ и безопасность
-
-В проекте API‑ключ для `Exchange Rates Data API` передаётся через `BuildConfig` и файл `local.properties`:
-
-- в `app/build.gradle.kts` ключ читается из `local.properties` (свойство `EXCHANGE_RATES_API_KEY`) и пробрасывается в `BuildConfig.EXCHANGE_RATES_API_KEY`;
-- в `NetworkModule` он используется в заголовке `apikey` при настройке `OkHttpClient`.
-
-Чтобы приложение работало, в корне проекта должен быть файл `local.properties` (обычно он уже есть и не коммитится в репозиторий) со строкой:
-
-```properties
-EXCHANGE_RATES_API_KEY=ВАШ_КЛЮЧ_ОТ_APILAYER
-```
-
-**Важно**:
-
-- не коммитьте реальные ключи в VCS (GitHub и т.п.);
-- при необходимости используйте дополнительные механизмы защиты (Secrets Gradle Plugin, CI‑секреты и т.д.).
 
 ### Структура пакетов (кратко)
 
